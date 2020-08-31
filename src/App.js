@@ -50,7 +50,7 @@ function App() {
             <td>Players</td>
             <td>R1</td>
             {columns.map((col, idx) => (
-              <td key={idx}>{`R${col}`}</td>
+              <td key={idx}>{`R${idx + 2}`}</td>
             ))}
           </tr>
         </thead>
