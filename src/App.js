@@ -14,6 +14,14 @@ const NOTES = {
   dead: "Dead",
 };
 
+const NoteDropdown = () => (
+  <select>
+    {Object.values(NOTES).map((note, idx) => (
+      <option key={idx}>{note}</option>
+    ))}
+  </select>
+);
+
 function App() {
   const [rows, addRow] = useState([]);
   const [columns, addColumn] = useState([]);
@@ -51,19 +59,11 @@ function App() {
             <tr key={idx}>
               <td contenteditable="true">{player.name}</td>
               <td>
-                <select>
-                  {Object.values(NOTES).map((note, idx) => (
-                    <option key={idx}>{note}</option>
-                  ))}
-                </select>
+                <NoteDropdown />
               </td>
               {columns.map((_, idx) => (
                 <td key={idx}>
-                  <select>
-                    {Object.values(NOTES).map((note, idx) => (
-                      <option key={idx}>{note}</option>
-                    ))}
-                  </select>
+                  <NoteDropdown />
                 </td>
               ))}
             </tr>
