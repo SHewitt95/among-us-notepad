@@ -14,13 +14,32 @@ const NOTES = {
   dead: "Dead",
 };
 
-const NoteDropdown = () => (
-  <select>
-    {Object.values(NOTES).map((note, idx) => (
-      <option key={idx}>{note}</option>
-    ))}
-  </select>
-);
+const NoteDropdown = ({ selected = NOTES.unsure }) => {
+  const COLORS = {
+    Innocent: "#53FD5F",
+    Unsure: "#EBFD68",
+    Imposter: "#FC6969",
+    Dead: "#68E6FD",
+  };
+
+  const [color, setColor] = useState(COLORS[selected]);
+  return (
+    <select
+      style={{ backgroundColor: color }}
+      onChange={(e) => setColor(COLORS[e.target.value])}
+    >
+      {Object.values(NOTES).map((note, idx) => (
+        <option
+          selected={note === NOTES.unsure ? true : false}
+          value={note}
+          key={idx}
+        >
+          {note}
+        </option>
+      ))}
+    </select>
+  );
+};
 
 function App() {
   const [rows, addRow] = useState([]);
@@ -57,7 +76,7 @@ function App() {
         <tbody>
           {rows.map((player, idx) => (
             <tr key={idx}>
-              <td contenteditable="true">{player.name}</td>
+              <td contentEditable="true">{player.name}</td>
               <td>
                 <NoteDropdown />
               </td>
