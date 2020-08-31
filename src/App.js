@@ -8,8 +8,8 @@ class Player {
 }
 
 const NOTES = {
-  innocent: "Innocent",
   unsure: "Unsure",
+  innocent: "Innocent",
   imposter: "Imposter",
   dead: "Dead",
 };
@@ -27,13 +27,10 @@ const NoteDropdown = ({ selected = NOTES.unsure }) => {
     <select
       style={{ backgroundColor: color }}
       onChange={(e) => setColor(COLORS[e.target.value])}
+      defaultValue={NOTES.unsure}
     >
       {Object.values(NOTES).map((note, idx) => (
-        <option
-          selected={note === NOTES.unsure ? true : false}
-          value={note}
-          key={idx}
-        >
+        <option value={note} key={idx}>
           {note}
         </option>
       ))}
@@ -76,7 +73,9 @@ function App() {
         <tbody>
           {rows.map((player, idx) => (
             <tr key={idx}>
-              <td contentEditable="true">{player.name}</td>
+              <td suppressContentEditableWarning={true} contentEditable="true">
+                {player.name}
+              </td>
               <td>
                 <NoteDropdown />
               </td>
