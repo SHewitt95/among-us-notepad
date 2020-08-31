@@ -42,7 +42,7 @@ function App() {
   const [rows, addRow] = useState([]);
   const [columns, addColumn] = useState([]);
   return (
-    <div className="App">
+    <>
       <button
         onClick={() => {
           addRow((prevRows) => [
@@ -65,7 +65,7 @@ function App() {
           <tr>
             <td>Players</td>
             <td>R1</td>
-            {columns.map((col, idx) => (
+            {columns.map((_, idx) => (
               <td key={idx}>{`R${idx + 2}`}</td>
             ))}
           </tr>
@@ -88,7 +88,7 @@ function App() {
           ))}
         </tbody>
       </table>
-    </div>
+    </>
   );
 }
 
