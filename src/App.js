@@ -4,15 +4,6 @@ import "./App.css";
 class Player {
   constructor({ name }) {
     this.name = name;
-    this.notes = [0];
-  }
-
-  addNote(note) {
-    this.notes.push(note);
-  }
-
-  updateNote(index, newNote) {
-    this.notes[index] = newNote;
   }
 }
 
@@ -28,6 +19,23 @@ function App() {
   const [columns, addColumn] = useState([]);
   return (
     <div className="App">
+      <button
+        onClick={() => {
+          addRow((prevRows) => [
+            ...prevRows,
+            new Player({ name: `Player ${rows.length + 1}` }),
+          ]);
+        }}
+      >
+        Add Player
+      </button>
+      <button
+        onClick={() => {
+          addColumn((prevCol) => [...prevCol, columns.length + 2]);
+        }}
+      >
+        Add Round
+      </button>
       <table>
         <thead>
           <tr>
@@ -36,21 +44,12 @@ function App() {
             {columns.map((col, idx) => (
               <td key={idx}>{`R${col}`}</td>
             ))}
-            <td>
-              <button
-                onClick={() => {
-                  addColumn((prevCol) => [...prevCol, columns.length + 2]);
-                }}
-              >
-                Add Round
-              </button>
-            </td>
           </tr>
         </thead>
         <tbody>
           {rows.map((player, idx) => (
             <tr key={idx}>
-              <td>{player.name}</td>
+              <td contenteditable="true">{player.name}</td>
               <td>
                 <select>
                   {Object.values(NOTES).map((note, idx) => (
@@ -69,20 +68,6 @@ function App() {
               ))}
             </tr>
           ))}
-          <tr>
-            <td>
-              <button
-                onClick={() => {
-                  addRow((prevRows) => [
-                    ...prevRows,
-                    new Player({ name: `Player ${rows.length + 1}` }),
-                  ]);
-                }}
-              >
-                Add Player
-              </button>
-            </td>
-          </tr>
         </tbody>
       </table>
     </div>
